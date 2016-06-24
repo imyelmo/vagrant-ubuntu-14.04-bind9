@@ -18,10 +18,10 @@ if errorlevel 1 goto error
 rem commit changes
 git add --all
 if errorlevel 1 goto error
-git commit -m "vagrant-ubuntu-14.04-dns %version%"
+git commit -m "vagrant-ubuntu-14.04-bind9 %version%"
 git push
 if errorlevel 1 goto error
-git tag -a %version% -m "vagrant-ubuntu-14.04-dns %version%"
+git tag -a %version% -m "vagrant-ubuntu-14.04-bind9 %version%"
 if errorlevel 1 goto error
 git push --tags
 if errorlevel 1 goto error
@@ -29,12 +29,12 @@ if errorlevel 1 goto error
 rem export virtualbox vm
 del *.ova
 del *.box
-vboxmanage export vagrant-ubuntu-14.04-dns -o vagrant-ubuntu-14.04-dns-%version%.ova
+vboxmanage export vagrant-ubuntu-14.04-bind9 -o vagrant-ubuntu-14.04-bind9-%version%.ova
 if errorlevel 1 goto error
 
 rem create & push vagrant box
 :retry
-packer build -force -var 'version=%version%' -var 'token=%ATLAS_TOKEN%' packer-vagrant-ubuntu-14.04-dns.json
+packer build -force -var 'version=%version%' -var 'token=%ATLAS_TOKEN%' packer-vagrant-ubuntu-14.04-bind9.json
 if errorlevel 1 goto retry
 
 rem cleanup

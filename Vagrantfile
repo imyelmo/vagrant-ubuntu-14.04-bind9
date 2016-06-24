@@ -16,7 +16,7 @@ $vb_mem = "4096"
 $vb_gui = false
 
 $descriptionString="
-vagrant-ubuntu-14.04-dns v#{$env_version} based on Ubuntu 14.04
+vagrant-ubuntu-14.04-bind9 v#{$env_version} based on Ubuntu 14.04
 base image cxtlabs/vagrant-ubuntu-14.04
 build for VirtualBox 5.0.22
 - bind9
@@ -30,10 +30,10 @@ Vagrant.configure(2) do |config|
   config.vm.box = "cxtlabs/vagrant-ubuntu-14.04"
   config.vm.box_check_update=true
 
-  # create rancheros instance for rancher on rancheros
-  config.vm.define "ubuntu-14.04-dns" do |ubuntudns|
-    hostname = "ubuntu-14-04-dns"
-    ubuntudns.vm.provider "virtualbox" do |vb|
+  # instance for bind9
+  config.vm.define "ubuntu-14.04-bind9" do |ubuntubind9|
+    hostname = "ubuntu-14-04-bind9"
+    ubuntubind9.vm.provider "virtualbox" do |vb|
           vb.name = "vagrant-#{hostname}"
           vb.customize ["modifyvm", :id, "--description", $descriptionString]
           vb.memory = $vb_mem
@@ -43,15 +43,15 @@ Vagrant.configure(2) do |config|
     # Create a forwarded port mapping which allows access to a specific port
     # within the machine from a port on the host machine. In the example below,
     # accessing "localhost:8080" will access port 80 on the guest machine.
-    ubuntudns.vm.network "forwarded_port", guest: 53, host: 53
-    ubuntudns.vm.network "private_network", ip: "192.168.96.111", virtualbox__intnet: "test_net"
-    ubuntudns.vm.hostname = hostname
+    ubuntubind9.vm.network "forwarded_port", guest: 53, host: 53
+    ubuntubind9.vm.network "private_network", ip: "192.168.96.111", virtualbox__intnet: "test_net"
+    ubuntubind9.vm.hostname = hostname
 
     # Define ssh configuration
-    ubuntudns.ssh.insert_key = false
+    ubuntubind9.ssh.insert_key = false
 
     # tty fix provisioner
-    ubuntudns.vm.provision "fix-no-tty", type: "shell" do |ttyfix|
+    ubuntubind9.vm.provision "fix-no-tty", type: "shell" do |ttyfix|
         ttyfix.privileged = false
         ttyfix.inline = "sudo sed -i '/tty/!s/mesg n/tty -s \\&\\& mesg n/' /root/.profile"
     end
@@ -59,7 +59,7 @@ Vagrant.configure(2) do |config|
     # Enable provisioning with a shell script. Additional provisioners such as
     # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
     # documentation for more information about their specific syntax and use.
-    ubuntudns.vm.provision "shell" do |cmd|
+    ubuntubind9.vm.provision "shell" do |cmd|
       cmd.path = "./provision_scripts/vagrant_provision.sh"
     end
 
