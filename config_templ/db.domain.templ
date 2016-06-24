@@ -1,0 +1,20 @@
+;
+; BIND data file for local loopback interface
+;
+$TTL	604800
+@	IN	SOA	 #{dnshostname}.#{domainname}. admin.#{domainname}. (
+			      3		; Serial
+			 604800		; Refresh
+			  86400		; Retry
+			2419200		; Expire
+			 604800 )	; Negative Cache TTL
+;
+; name servers - NS records
+     IN      NS      #{dnshostname}.#{domainname}.
+
+; name servers - A records
+#{dnshostname}.#{domainname}.  IN      A       #{dnshostip}
+
+; servers - A records
+firewall.linux.example.          IN      A       192.168.96.1
+printer.linux.example.           IN      A       192.168.96.2

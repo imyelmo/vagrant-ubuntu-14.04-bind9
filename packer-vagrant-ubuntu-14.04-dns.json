@@ -1,0 +1,44 @@
+{
+  "variables": {
+      "atlas_token": "{{env `token`}}",
+      "image_version": "{{env `version`}}"
+    },
+  "builders": [
+      {
+        "type": "virtualbox-ovf",
+        "source_path": "vagrant-ubuntu-14.04-gitlab-{{user `image_version`}}.ova",
+		    "headless": "true",
+		    "import_opts": "keepallmacs",
+        "ssh_username": "vagrant",
+        "ssh_password": "vagrant",
+        "shutdown_command": "echo 'packer' | sudo -S shutdown -P now"
+      }
+  ],
+  "provisioners": [
+	   {
+	      "type": "shell",
+		    "script": "provision_scripts/packer_provision.sh"
+       }
+  ],
+  "post-processors": [
+      [{
+          "type": "vagrant",
+          "compression_level": 9,
+          "output": "vagrant-ubuntu-14.04-gitlab_{{user `image_version`}}_{{.Provider}}.box"
+      },
+      {
+          "type": "atlas",
+          "token": "{{user `atlas_token`}}",
+          "artifact": "cxtlabs/vagrant-ubuntu-14.04-gitlab",
+          "artifact_type": "vagrant.box",
+          "metadata":
+              {
+		            "description": "vagrant-ubuntu-14.04-gitlab {{user `image_version`}}",
+                "created_at": "{{timestamp}}",
+		            "provider": "virtualbox",
+                "version": "{{user `image_version`}}"
+              }
+      }]
+  ]
+
+}
