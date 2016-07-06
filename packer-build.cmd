@@ -29,7 +29,7 @@ if errorlevel 1 goto error
 rem export virtualbox vm
 del *.ova
 del *.box
-vboxmanage export vagrant-ubuntu-14.04-bind9 -o vagrant-ubuntu-14.04-bind9-%version%.ova
+vboxmanage export vagrant-ubuntu-14-04-bind9 -o vagrant-ubuntu-14.04-bind9-%version%.ova
 if errorlevel 1 goto error
 
 rem create & push vagrant box
