@@ -18,8 +18,8 @@ $vb_gui = false
 $descriptionString="
 vagrant-ubuntu-14.04-bind9 v#{$env_version} based on Ubuntu 14.04
 base image cxtlabs/vagrant-ubuntu-14.04
-build for VirtualBox 5.0.22
-- bind9
+build for VirtualBox 5.0.24
+- bind9 9.9.5
 "
 
 # All Vagrant configuration is done below. The "2" in Vagrant.configure
