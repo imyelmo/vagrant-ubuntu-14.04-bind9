@@ -14,6 +14,6 @@ From the command line inside the directory in which are the downloaded files:
 3) Execute "vagrant halt" to stop the VM.
 4) Execute "vagrant destroy" to delete the VM after the check.
 
-If you find any problem, perhaps in step 2), write in the discussion pannel: 
+If you find any problem, perhaps in step 2), write in the general discussion pannel: 
 
 https://github.com/orgs/MUIT-RdDC-UAH-University/teams/rddc-2020-2021/discussions
