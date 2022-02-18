@@ -16,4 +16,4 @@ From the command line inside the directory in which are the downloaded files:
 
 If you find any problem, perhaps in step 2), write in the general discussion pannel: 
 
-https://github.com/orgs/MUIT-RdDC-UAH-University/teams/rddc-2020-2021/discussions
+https://github.com/orgs/MUIT-RdDC-UAH-University/teams/rddc-2021-22/discussions
